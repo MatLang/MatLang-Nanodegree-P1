@@ -15,7 +15,6 @@ export default class BooksApp extends Component {
     componentDidMount () {
       BooksAPI.getAll().then((books) => {
         this.setState( { books: books, showSearchPage: false })
-        console.log('test')
       })
     }
 
@@ -44,7 +43,10 @@ export default class BooksApp extends Component {
 
     return (
         <div className="app">
-            <Route path="/searchbooks" component={Search}/>
+            <Route path="/searchbooks" render={() => (
+              <Search books={currentlyReading.concat(wantToRead,read)}/>
+            )}
+            />
             <Route exact path="/" render={() => (
                 <div className="list-books">
                     <div className="list-books-title">
