@@ -10,7 +10,7 @@ export default class SearchBook extends Component {
             searchResults: []
         }
     }
-
+  
     search = (e) => {
         const query = e.target.value;
         if (!query) {
@@ -28,7 +28,16 @@ export default class SearchBook extends Component {
                 }
                 return book;
             });
-            this.setState({searchResults});
+            function trim(arr, key) {
+              let values = {}
+              return arr.filter(function(item) {
+                let val = item[key]
+                let exists = values[val]
+                values[val] = true
+                return !exists
+                })
+              }
+            this.setState({searchResults: trim(searchResults,'id')});
         });
     };
 

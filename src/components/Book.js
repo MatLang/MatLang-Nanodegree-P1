@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Book extends Component {
 
   onBookShelfChange = (e) => {
-      const shelf = e.target.options[e.target.selectedIndex].value;
+      const shelf = e.target.value;
       this.props.onShelfChange(this.props.book, shelf);
   };
 
