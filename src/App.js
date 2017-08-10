@@ -21,22 +21,16 @@ export default class BooksApp extends Component {
       })
     }
 
-  onShelfChange = (book,shelf) => {
-    BooksAPI.update(book,shelf)
-      .then(
-        this.setState((state) => (
-          {books: state.books.map(b => {
-            if (b.title === book.title){
-              b.shelf = shelf;
-              return b
-            } else {
-              return b
-            }
-          }),
-          showSearchPage: false
-         }))
-      )
-  };
+    onShelfChange = (book,shelf) => {
+      BooksAPI.update(book,shelf).then(
+        response => {
+          book.shelf = shelf
+          this.setState(state => ({
+            books: state.books.filter(b => b.id !== book.id).concat([ book ]),
+            showSearchPage: false,
+        }))
+      })
+    }
 
   render() {
     const state = this.state.books

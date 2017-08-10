@@ -10,7 +10,7 @@ export default class SearchBook extends Component {
             searchResults: []
         }
     }
-  
+
     search = (e) => {
         const query = e.target.value;
         if (!query) {
@@ -21,10 +21,14 @@ export default class SearchBook extends Component {
             if (searchResults.error) {
                 searchResults = [];
             }
+            console.log(searchResults);
             searchResults = searchResults.map((book) => {
                 const bookInShelf = this.props.books.find(b => b.id === book.id);
                 if (bookInShelf) {
                     book.shelf = bookInShelf.shelf;
+                }
+                if (!bookInShelf){
+                  book.shelf = "none";
                 }
                 return book;
             });
