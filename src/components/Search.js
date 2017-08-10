@@ -10,7 +10,13 @@ export default class SearchBook extends Component {
             searchResults: []
         }
     }
-
+  /**
+    * @description search method gets fired once the user submits a search.
+    This fires an API request to the database, fetching all the available books
+    matching the search term. The recieved data is then used to set the components
+    state, i.e. gather booksearch data and list in searchResult array.
+    * @returns Updated state Object
+  */
     search = (e) => {
         const query = e.target.value;
         if (!query) {
@@ -21,6 +27,8 @@ export default class SearchBook extends Component {
             if (searchResults.error) {
                 searchResults = [];
             }
+            // if book already is in bookshelf, set shelf value to the already
+            // existing value, not the one recieved from the database
             searchResults = searchResults.map((book) => {
                 const bookInShelf = this.props.books.find(b => b.id === book.id);
                 if (bookInShelf) {
@@ -28,6 +36,7 @@ export default class SearchBook extends Component {
                 }
                 return book;
             });
+            // Remove duplicate values from search result
             function trim(arr, key) {
               let values = {}
               return arr.filter(function(item) {

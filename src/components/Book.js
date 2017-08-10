@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 export default class Book extends Component {
 
+  // Set shelf value to the value selected by user
+  // fire onShelfChange method recieved in props in order to update shelf
   onBookShelfChange = (e) => {
       const shelf = e.target.options[e.target.selectedIndex].value;
       this.props.onShelfChange(this.props.book, shelf);
