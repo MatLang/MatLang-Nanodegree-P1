@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Book extends Component {
 
   onBookShelfChange = (e) => {
-      const shelf = e.target.value;
+      const shelf = e.target.options[e.target.selectedIndex].value;
       this.props.onShelfChange(this.props.book, shelf);
   };
 
@@ -18,7 +18,7 @@ export default class Book extends Component {
             }}>
             </div>
             <div className="book-shelf-changer">
-              <select value={this.props.book.shelf} onChange={this.onBookShelfChange }>
+              <select value={this.props.book.shelf || 'none'} onChange={this.onBookShelfChange }>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>

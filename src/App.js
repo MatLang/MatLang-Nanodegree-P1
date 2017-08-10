@@ -7,13 +7,10 @@ import BookshelfTable from './components/BookshelfTable'
 import Search from './components/Search'
 
 export default class BooksApp extends Component {
-  constructor(args) {
-        super(args);
-        this.state = {
-            books: [],
-            showSearchPage: true,
-        }
-    }
+  state = {
+          books: [],
+          showSearchPage: true
+  }
 
     componentDidMount () {
       BooksAPI.getAll().then((books) => {
@@ -21,16 +18,17 @@ export default class BooksApp extends Component {
       })
     }
 
-    onShelfChange = (book,shelf) => {
-      BooksAPI.update(book,shelf).then(
-        response => {
-          book.shelf = shelf
-          this.setState(state => ({
-            books: state.books.filter(b => b.id !== book.id).concat([ book ]),
-            showSearchPage: false,
-        }))
+  onShelfChange = (book,shelf) => {
+    BooksAPI.update(book,shelf)
+      .then((response) => {
+        book.shelf = shelf
+        this.setState( (state) => (
+          { books: state.books.filter(b => b.id !== book.id).concat([ book ]),
+          showSearchPage: false}
+          )
+        )
       })
-    }
+  };
 
   render() {
     const state = this.state.books
@@ -40,13 +38,12 @@ export default class BooksApp extends Component {
 
     return (
         <div className="app">
-        <Route path="/searchbooks" render={({history}) => (
-            <Search
-                onShelfChange={this.onShelfChange}
-                history={history}
-                books={currentlyReading.concat(wantToRead, read)}
+            <Route path="/searchbooks" render={() => (
+              <Search
+              books={currentlyReading.concat(wantToRead,read)}
+              onShelfChange={this.onShelfChange}/>
+            )}
             />
-        )}/>
             <Route exact path="/" render={() => (
                 <div className="list-books">
                     <div className="list-books-title">
