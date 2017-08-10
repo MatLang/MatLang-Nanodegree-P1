@@ -24,7 +24,7 @@ export default class BooksApp extends Component {
         book.shelf = shelf
         this.setState( (state) => (
           { books: state.books.filter(b => b.id !== book.id).concat([ book ]),
-          showSearchPage: false}
+            showSearchPage: false}
           )
         )
       })
