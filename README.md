@@ -3,5 +3,5 @@ React Nanodegree. In order to run:
 
 1. Clone repository to your desktop
 2. install dependencies with command "npm install"
-3. start app with npm return
+3. start app with npm run
 4. use app in browser on localhost
